@@ -1,0 +1,592 @@
+int lfmp=49; //leftfront motorplus
+int lfmm=48; //leftfront motorminus
+int lfmpwm=3;  //leftfrontmotorpwm//done
+
+int lmmp=45; //leftmiddle motorplus
+int lmmm=44; //leftmiddle motorminus
+int lmmpwm=8;  //leftmiddlemotorpwm//done
+int lfmp=49; //leftfront motorplus
+int lfmm=48; //leftfront motorminus
+int lfmpwm=3;  //leftfrontmotorpwm//done
+
+int lmmp=44; //leftmiddle motorplus
+int lmmm=45; //leftmiddle motorminus
+int lmmpwm=8;  //leftmiddlemotorpwm//done
+
+int lbmp=32; //leftback motorplus
+int lbmm=33; //leftback motorminus
+int lbmpwm=10;  //leftbackmotorpwm//done
+
+
+
+int rfmp=53; //rightfrontmotorplus
+int rfmm=52; //rightfrontmotorminus
+int rfmpwm=5;  //rightfrontmotorpwm//done
+
+int rmmp=41; //rightmiddlemotorplus
+int rmmm=40; //rightmiddlemotorminus
+int rmmpwm=7;  //rightmiddlemotorpwm//done
+
+int rbmp=36; //rightbackmotorplus
+int rbmm=37; //rightbackmotorminus
+int rbmpwm=12;  //rightbackmotorpwm//done
+
+int state=0;
+int flag=0;
+const int ms=255; //max speed
+
+String readString;
+
+void lfmfor() {      //leftfrontmotorforward
+  digitalWrite(lfmp,HIGH);
+  digitalWrite(lfmm, LOW);
+  analogWrite(lfmpwm,ms);
+}
+
+void lmmfor() {      //leftmiddlemotorforward
+    digitalWrite(lmmp,HIGH);
+  digitalWrite(lmmm, LOW);
+  analogWrite(lmmpwm,ms);
+}
+
+void lbmfor() {      //leftbackmotorforward
+  digitalWrite(lbmp,HIGH);
+  digitalWrite(lbmm, LOW);
+  analogWrite(lbmpwm,ms);
+}
+
+void lfmrev() {      //leftfrontmotorrev
+  digitalWrite(lfmm,HIGH);
+  digitalWrite(lfmp, LOW);
+  analogWrite(lfmpwm,ms);
+}
+
+void lmmrev() {      //leftmiddlemotorrev
+    digitalWrite(lmmm,HIGH);
+  digitalWrite(lmmp, LOW);
+  analogWrite(lmmpwm,ms);
+}
+
+void lbmrev() {      //leftbackmotorrev
+  digitalWrite(lbmm,HIGH);
+  digitalWrite(lbmp, LOW);
+  analogWrite(lbmpwm,ms);
+}
+
+void lfmstop() {    //leftfrontmotorstop
+    digitalWrite(lfmp,LOW);
+  digitalWrite(lfmm, LOW);
+  analogWrite(lfmpwm,0);
+}
+
+void lmmstop() {    //leftmiddlemotorstop
+    digitalWrite(lmmp,LOW);
+  digitalWrite(lmmm, LOW);
+  analogWrite(lmmpwm,0);
+}
+
+void lbmstop() {    //leftbackmotorstop
+    digitalWrite(lbmp,LOW);
+  digitalWrite(lbmm, LOW);
+  analogWrite(lbmpwm,0);
+}
+void rfmfor() {      //rightfrontmotorforward
+  digitalWrite(rfmp,HIGH);
+  digitalWrite(rfmm, LOW);
+  analogWrite(rfmpwm,ms);
+}
+
+void rmmfor() {      //rightmiddlemotorforward
+  digitalWrite(rmmp,HIGH);
+  digitalWrite(rmmm, LOW);
+  analogWrite(rmmpwm,ms);
+}
+
+void rbmfor() {      //rightbackmotorforward
+  digitalWrite(rbmp,HIGH);
+  digitalWrite(rbmm, LOW);
+  analogWrite(rbmpwm,ms);
+  Serial.println("rbmfor");
+
+}
+void rfmrev() {      //rightfrontmotorrev
+  digitalWrite(rfmm,HIGH);
+  digitalWrite(rfmp, LOW);
+  analogWrite(rfmpwm,ms);
+}
+
+void rmmrev() {      //rightmiddlemotorrev
+  digitalWrite(rmmm,HIGH);
+  digitalWrite(rmmp, LOW);
+  analogWrite(rmmpwm,ms);
+}
+
+void rbmrev() {      //rightbackmotorrev
+  digitalWrite(rbmm,HIGH);
+  digitalWrite(rbmp, LOW);
+  analogWrite(rbmpwm,ms);
+
+}
+
+void rfmstop() {    //rightfrontmotorstop
+    digitalWrite(rfmp,LOW);
+  digitalWrite(rfmm, LOW);
+  analogWrite(rfmpwm,0);
+}
+
+void rmmstop() {    //rightmiddlemotorstop
+    digitalWrite(rmmp,LOW);
+  digitalWrite(rmmm, LOW);
+  analogWrite(rmmpwm,0); 
+}
+
+void rbmstop() {    //rightbackmotorstop
+    digitalWrite(rbmp,LOW);
+  digitalWrite(rbmm, LOW);
+  analogWrite(rbmpwm,0);
+}
+
+
+void forward() {      //car forward
+  rfmfor();
+  rmmfor();
+  rbmfor();
+  lfmfor();
+  lmmfor();
+  lbmfor();
+}
+
+void reverse() {      //car reverse
+  rfmrev();
+  rmmrev();
+  rbmrev();
+  lfmrev();
+  lmmrev();
+  lbmrev();
+}
+
+void left() {       //car left
+  rfmfor();
+  rmmfor();
+  rbmfor();
+  lfmrev();
+  lmmrev();
+  lbmrev();
+}
+
+void right() {      //car right
+  rfmrev();
+  rmmrev();
+  rbmrev();
+  lfmfor();
+  lmmfor();
+  lbmfor();
+}
+
+void vehstop() {      //vehicle stop
+  rfmstop();
+  rmmstop();
+  rbmstop();
+  lfmstop();
+  lmmstop();
+  lbmstop();
+}
+
+void setup() {
+  pinMode(lfmp,OUTPUT);
+  pinMode(lfmm, OUTPUT);
+  pinMode(lfmpwm,OUTPUT);
+  pinMode(rfmp,OUTPUT);
+  pinMode(rfmm, OUTPUT);
+  pinMode(rfmpwm,OUTPUT);
+  pinMode(lmmp,OUTPUT);
+  pinMode(lmmm, OUTPUT);
+  pinMode(lmmpwm,OUTPUT);
+  pinMode(rmmp,OUTPUT);
+  pinMode(rmmm, OUTPUT);
+  pinMode(rmmpwm,OUTPUT);
+  pinMode(lbmp,OUTPUT);
+  pinMode(lbmm, OUTPUT);
+  pinMode(lbmpwm,OUTPUT);
+  pinMode(rbmp,OUTPUT);
+  pinMode(rbmm, OUTPUT);
+  pinMode(rbmpwm,OUTPUT);
+  Serial.begin(9600);
+  // put your setup code here, to run once:
+
+}
+
+void loop() {
+
+  while(Serial.available()){
+    delay(50);
+    char c = Serial.read();
+    readString+=c;
+  }
+
+  if(readString.length() > 0) {
+    Serial.println(readString);
+
+    if(readString == "FORWARD"){
+      forward();
+    }
+    
+    if(readString == "BACK"){
+      reverse();
+    }
+
+    if(readString == "LEFT"){
+      left();
+    }
+
+    if(readString == "RIGHT"){
+      right();
+    }
+
+    if(readString == "STOP"){
+      vehstop();
+    }
+
+    readString = "";
+  }
+
+  /*forward();
+  delay(1000);
+  reverse();
+  delay(1000);
+  left();
+  delay(1000);
+  right();
+  delay(1000);
+  vehstop();
+  
+  
+  if(Serial.available()>0) {
+    state=Serial.read();
+    flag=0;
+  }
+if (state=='0') {
+  forward();
+  if(flag==0) {
+    Serial.println("forward");
+    flag=1;
+  }
+}
+else if (state== '1') {
+  reverse();
+  if(flag==0) {
+    Serial.println("reverse");
+    flag=1;
+  }
+}
+else if (state== '2') {
+  right();
+  if(flag==0) {
+    Serial.println("right");
+    flag=1;
+  }
+}
+else if (state== '3') {
+  left();
+  if(flag==0) {
+    Serial.println("left");
+    flag=1;
+  }
+}
+else if (state== '4') {
+  vehstop();
+  if(flag==0) {
+    Serial.println("stop");
+    flag=1;
+  }
+}*/
+}
+
+int lbmp=32; //leftback motorplus
+int lbmm=33; //leftback motorminus
+int lbmpwm=10;  //leftbackmotorpwm//done
+
+
+
+int rfmp=53; //rightfrontmotorplus
+int rfmm=52; //rightfrontmotorminus
+int rfmpwm=5;  //rightfrontmotorpwm//done
+
+int rmmp=40; //rightmiddlemotorplus
+int rmmm=41; //rightmiddlemotorminus
+int rmmpwm=7;  //rightmiddlemotorpwm//done
+
+int rbmp=37; //rightbackmotorplus
+int rbmm=36; //rightbackmotorminus
+int rbmpwm=12;  //rightbackmotorpwm//done
+
+int state=0;
+int flag=0;
+const int ms=255; //max speed
+
+String readString;
+
+void lfmfor() {      //leftfrontmotorforward
+  digitalWrite(lfmp,HIGH);
+  digitalWrite(lfmm, LOW);
+  analogWrite(lfmpwm,ms);
+}
+
+void lmmfor() {      //leftmiddlemotorforward
+    digitalWrite(lmmp,HIGH);
+  digitalWrite(lmmm, LOW);
+  analogWrite(lmmpwm,ms);
+}
+
+void lbmfor() {      //leftbackmotorforward
+  digitalWrite(lbmp,HIGH);
+  digitalWrite(lbmm, LOW);
+  analogWrite(lbmpwm,ms);
+}
+
+void lfmrev() {      //leftfrontmotorrev
+  digitalWrite(lfmm,HIGH);
+  digitalWrite(lfmp, LOW);
+  analogWrite(lfmpwm,ms);
+}
+
+void lmmrev() {      //leftmiddlemotorrev
+    digitalWrite(lmmm,HIGH);
+  digitalWrite(lmmp, LOW);
+  analogWrite(lmmpwm,ms);
+}
+
+void lbmrev() {      //leftbackmotorrev
+  digitalWrite(lbmm,HIGH);
+  digitalWrite(lbmp, LOW);
+  analogWrite(lbmpwm,ms);
+}
+
+void lfmstop() {    //leftfrontmotorstop
+    digitalWrite(lfmp,LOW);
+  digitalWrite(lfmm, LOW);
+  analogWrite(lfmpwm,0);
+}
+
+void lmmstop() {    //leftmiddlemotorstop
+    digitalWrite(lmmp,LOW);
+  digitalWrite(lmmm, LOW);
+  analogWrite(lmmpwm,0);
+}
+
+void lbmstop() {    //leftbackmotorstop
+    digitalWrite(lbmp,LOW);
+  digitalWrite(lbmm, LOW);
+  analogWrite(lbmpwm,0);
+}
+void rfmfor() {      //rightfrontmotorforward
+  digitalWrite(rfmp,HIGH);
+  digitalWrite(rfmm, LOW);
+  analogWrite(rfmpwm,ms);
+}
+
+void rmmfor() {      //rightmiddlemotorforward
+  digitalWrite(rmmp,HIGH);
+  digitalWrite(rmmm, LOW);
+  analogWrite(rmmpwm,ms);
+}
+
+void rbmfor() {      //rightbackmotorforward
+  digitalWrite(rbmp,HIGH);
+  digitalWrite(rbmm, LOW);
+  analogWrite(rbmpwm,ms);
+  Serial.println("rbmfor");
+
+}
+void rfmrev() {      //rightfrontmotorrev
+  digitalWrite(rfmm,HIGH);
+  digitalWrite(rfmp, LOW);
+  analogWrite(rfmpwm,ms);
+}
+
+void rmmrev() {      //rightmiddlemotorrev
+  digitalWrite(rmmm,HIGH);
+  digitalWrite(rmmp, LOW);
+  analogWrite(rmmpwm,ms);
+}
+
+void rbmrev() {      //rightbackmotorrev
+  digitalWrite(rbmm,HIGH);
+  digitalWrite(rbmp, LOW);
+  analogWrite(rbmpwm,ms);
+
+}
+
+void rfmstop() {    //rightfrontmotorstop
+    digitalWrite(rfmp,LOW);
+  digitalWrite(rfmm, LOW);
+  analogWrite(rfmpwm,0);
+}
+
+void rmmstop() {    //rightmiddlemotorstop
+    digitalWrite(rmmp,LOW);
+  digitalWrite(rmmm, LOW);
+  analogWrite(rmmpwm,0); 
+}
+
+void rbmstop() {    //rightbackmotorstop
+    digitalWrite(rbmp,LOW);
+  digitalWrite(rbmm, LOW);
+  analogWrite(rbmpwm,0);
+}
+
+
+void forward() {      //car forward
+  rfmfor();
+  rmmfor();
+  rbmfor();
+  lfmfor();
+  lmmfor();
+  lbmfor();
+}
+
+void reverse() {      //car reverse
+  rfmrev();
+  rmmrev();
+  rbmrev();
+  lfmrev();
+  lmmrev();
+  lbmrev();
+}
+
+void left() {       //car left
+  rfmfor();
+  rmmfor();
+  rbmfor();
+  lfmrev();
+  lmmrev();
+  lbmrev();
+}
+
+void right() {      //car right
+  rfmrev();
+  rmmrev();
+  rbmrev();
+  lfmfor();
+  lmmfor();
+  lbmfor();
+}
+
+void vehstop() {      //vehicle stop
+  rfmstop();
+  rmmstop();
+  rbmstop();
+  lfmstop();
+  lmmstop();
+  lbmstop();
+}
+
+void setup() {
+  pinMode(lfmp,OUTPUT);
+  pinMode(lfmm, OUTPUT);
+  pinMode(lfmpwm,OUTPUT);
+  pinMode(rfmp,OUTPUT);
+  pinMode(rfmm, OUTPUT);
+  pinMode(rfmpwm,OUTPUT);
+  pinMode(lmmp,OUTPUT);
+  pinMode(lmmm, OUTPUT);
+  pinMode(lmmpwm,OUTPUT);
+  pinMode(rmmp,OUTPUT);
+  pinMode(rmmm, OUTPUT);
+  pinMode(rmmpwm,OUTPUT);
+  pinMode(lbmp,OUTPUT);
+  pinMode(lbmm, OUTPUT);
+  pinMode(lbmpwm,OUTPUT);
+  pinMode(rbmp,OUTPUT);
+  pinMode(rbmm, OUTPUT);
+  pinMode(rbmpwm,OUTPUT);
+  Serial.begin(9600);
+  // put your setup code here, to run once:
+
+}
+
+void loop() {
+
+  while(Serial.available()){
+    delay(50);
+    char c = Serial.read();
+    readString+=c;
+  }
+
+  if(readString.length() > 0) {
+    Serial.println(readString);
+
+    if(readString == "FORWARD"){
+      forward();
+    }
+    
+    if(readString == "BACK"){
+      reverse();
+    }
+
+    if(readString == "LEFT"){
+      left();
+    }
+
+    if(readString == "RIGHT"){
+      right();
+    }
+
+    if(readString == "STOP"){
+      vehstop();
+    }
+
+    readString = "";
+  }
+
+  /*forward();
+  delay(1000);
+  reverse();
+  delay(1000);
+  left();
+  delay(1000);
+  right();
+  delay(1000);
+  vehstop();
+  
+  
+  if(Serial.available()>0) {
+    state=Serial.read();
+    flag=0;
+  }
+if (state=='0') {
+  forward();
+  if(flag==0) {
+    Serial.println("forward");
+    flag=1;
+  }
+}
+else if (state== '1') {
+  reverse();
+  if(flag==0) {
+    Serial.println("reverse");
+    flag=1;
+  }
+}
+else if (state== '2') {
+  right();
+  if(flag==0) {
+    Serial.println("right");
+    flag=1;
+  }
+}
+else if (state== '3') {
+  left();
+  if(flag==0) {
+    Serial.println("left");
+    flag=1;
+  }
+}
+else if (state== '4') {
+  vehstop();
+  if(flag==0) {
+    Serial.println("stop");
+    flag=1;
+  }
+}*/
+}
